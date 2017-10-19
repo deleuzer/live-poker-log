@@ -30,18 +30,25 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == 'Sess 1: I got crushed' for row in rows),
-            "New poker sess did not appear in table"
-            )
+        self.assertIn('Sess 1: I got crushed', [row.text for row in rows])
         # There is still a text area inviting him to enter another session.
         # He enters "Bad beats everywhere" (Brett continues his run bad)
-        self.fail('Finish the test!')
-
+        textbox = self.browser.find_element_by_id('id_new_sess')
+        textbox.send_keys('Bad beats everywhere')
+        textbox.submit()
+        time.sleep(1)
         # The page updates again and now shows both sessions
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('Sess 1: I got crushed', [row.text for row in rows])
+        self.assertIn(
+            'Sess 2: Bad beats everywhere',
+            [row.text for row in rows]
+            )
         # Brett wonders if the site will remember his session. Then he sees
         # that the site has generated a unique URL for him -- there is some
         # explanatory text to that effect.
+        self.fail('Finish the test!')
         # He visits the URL - his sessions are still there
         # Satisfied, he starts watching poker videos.
 

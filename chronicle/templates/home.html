@@ -4,10 +4,13 @@
   </head>
   <body>
     <h1>Your Poker Chronicle</h1>
-    <form>
-      <textarea id="id_new_sess" placeholder="Describe session" rows="10"></textarea>
+    <form method="POST">
+      <textarea id="id_new_sess" name="sess_text" placeholder="Describe session" rows="10"></textarea>
+      <input type="submit" />
+      {% csrf_token %}
     </form>
     <table id="id_list_table">
+      <tr><td>Sess 1: {{ new_sess_text }}</td></tr>
     </table>
   </body>
 </html>
