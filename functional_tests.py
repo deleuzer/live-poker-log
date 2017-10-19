@@ -11,7 +11,7 @@ class NewVisitorTest(unittest.TestCase):
         # to checkout the homepage.
         self.browser.get('http://localhost:8000')
         # He notices the page title and header mention poker sessions
-        self.assertIn('Poker Session Log', self.browser.title)
+        self.assertIn('Poker Chronicle', self.browser.title)
         self.fail('Finish the test!')
         # He is invited to start detailing his play immediately
         # He types "I got crushed" into a text area (Brett is running bad)
