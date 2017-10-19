@@ -10,7 +10,9 @@
       {% csrf_token %}
     </form>
     <table id="id_list_table">
-      <tr><td>Sess 1: {{ new_sess_text }}</td></tr>
+      {% for chron in chronicles %}
+      <tr><td>Sess {{ forloop.counter }}: {{ chron.text }}</td></tr>
+      {% endfor %}
     </table>
   </body>
 </html>

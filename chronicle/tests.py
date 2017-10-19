@@ -11,9 +11,22 @@ class HomePageTest(TestCase):
         self.assertTemplateUsed(response, 'home.html')
     def test_can_save_a_POST_request(self):
         response = self.client.post('/', data={'sess_text': 'A new sess chronicle'})
-        self.assertIn('A new sess chronicle', response.content.decode())
-        self.assertTemplateUsed(response, 'home.html')
-                        
+        self.assertEqual(PokerSession.objects.count(), 1)
+        new_sess = PokerSession.objects.first()
+        self.assertEqual(new_sess.text, 'A new sess chronicle')
+    def test_redirects_after_POST(self):
+        response = self.client.post('/', data={'sess_text': 'A new sess chronicle'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
+    def test_only_saves_items_when_necessary(self):
+        self.client.get('/')
+        self.assertEqual(PokerSession.objects.count(), 0)
+    def test_display_all_list_items(self):
+        PokerSession.objects.create(text='chronicle 1')
+        PokerSession.objects.create(text='chronicle 2')
+        response = self.client.get('/')
+        self.assertIn('chronicle 1', response.content.decode())
+        self.assertIn('chronicle 2', response.content.decode())
 class PokerSessionModelTest(TestCase):
     def test_saving_and_retrieving_pokersessions(self):
         first_pokersession = PokerSession()
@@ -32,4 +45,4 @@ class PokerSessionModelTest(TestCase):
         self.assertEqual(second_saved_pokersession.text,
                          'Session the second'
         )
-        
+

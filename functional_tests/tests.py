@@ -1,9 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
     def tearDown(self):
@@ -15,7 +15,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_store_a_sesslog_and_get_it_later(self):
         # Brett hears about a poker session tracking website. He goes
         # to checkout the homepage.
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         # He notices the page title and header mention poker sessions
         self.assertIn('Poker Chronicle', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
@@ -53,6 +53,3 @@ class NewVisitorTest(unittest.TestCase):
         # He visits the URL - his sessions are still there
         # Satisfied, he starts watching poker videos.
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
-    

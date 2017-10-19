@@ -1,9 +1,13 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from chronicle.models import PokerSession
 
 def home_page(request):
-    return render(request, 'home.html', {
-        'new_sess_text': request.POST.get('sess_text', ''),
-    })
+    if request.method == 'POST':
+        PokerSession.objects.create(text=request.POST['sess_text'])
+        return redirect('/')
+    chronicles = PokerSession.objects.all()
+    return render(request, 'home.html', {'chronicles': chronicles})
+
 
 

@@ -1,7 +1,9 @@
 * TODO
-** Display multiple sessions in the table
+** Clean up after FT runs
+** Remove time.sleeps
 ** Support more than one list
 
 * FIXED
 ** Fix saving blank items on visit to home page
+** Display multiple sessions in the table
 ** Code smell: POST test is too long?
