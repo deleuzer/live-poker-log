@@ -8,6 +8,10 @@ class NewVisitorTest(unittest.TestCase):
         self.browser = webdriver.Firefox()
     def tearDown(self):
         self.browser.quit()
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
     def test_can_store_a_sesslog_and_get_it_later(self):
         # Brett hears about a poker session tracking website. He goes
         # to checkout the homepage.
@@ -30,7 +34,7 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('Sess 1: I got crushed', [row.text for row in rows])
+        self.check_for_row_in_list_table('Sess 1: I got crushed')
         # There is still a text area inviting him to enter another session.
         # He enters "Bad beats everywhere" (Brett continues his run bad)
         textbox = self.browser.find_element_by_id('id_new_sess')
@@ -40,11 +44,8 @@ class NewVisitorTest(unittest.TestCase):
         # The page updates again and now shows both sessions
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('Sess 1: I got crushed', [row.text for row in rows])
-        self.assertIn(
-            'Sess 2: Bad beats everywhere',
-            [row.text for row in rows]
-            )
+        self.check_for_row_in_list_table('Sess 1: I got crushed')
+        self.check_for_row_in_list_table('Sess 2: Bad beats everywhere')
         # Brett wonders if the site will remember his session. Then he sees
         # that the site has generated a unique URL for him -- there is some
         # explanatory text to that effect.
