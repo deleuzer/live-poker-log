@@ -31,7 +31,8 @@ class NewVisitorTest(unittest.TestCase):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-            any(row.text == 'Sess 1: I got crushed' for row in rows)
+            any(row.text == 'Sess 1: I got crushed' for row in rows),
+            "New poker sess did not appear in table"
             )
         # There is still a text area inviting him to enter another session.
         # He enters "Bad beats everywhere" (Brett continues his run bad)
