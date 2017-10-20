@@ -9,18 +9,6 @@ class HomePageTest(TestCase):
     def test_home_page_returns_correct_html(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
-    def test_can_save_a_POST_request(self):
-        response = self.client.post('/', data={'sess_text': 'A new sess chronicle'})
-        self.assertEqual(PokerSession.objects.count(), 1)
-        new_sess = PokerSession.objects.first()
-        self.assertEqual(new_sess.text, 'A new sess chronicle')
-    def test_redirects_after_POST(self):
-        response = self.client.post('/', data={'sess_text': 'A new sess chronicle'})
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/chronicles/the-only-session-in-the-world/')
-    def test_only_saves_items_when_necessary(self):
-        self.client.get('/')
-        self.assertEqual(PokerSession.objects.count(), 0)
 class PokerSessionModelTest(TestCase):
     def test_saving_and_retrieving_pokersessions(self):
         first_pokersession = PokerSession()
@@ -49,3 +37,16 @@ class ChroniclesViweTest(TestCase):
         response = self.client.get('/chronicles/the-only-session-in-the-world/')
         self.assertContains(response, 'chronicle 1')
         self.assertContains(response, 'chronicle 2')
+
+class NewChronicleTest(TestCase):
+    def test_can_save_a_POST_request(self):
+        response = self.client.post('/chronicles/new',
+                                    data={'sess_text': 'A new sess chronicle'})
+        self.assertEqual(PokerSession.objects.count(), 1)
+        new_sess = PokerSession.objects.first()
+        self.assertEqual(new_sess.text, 'A new sess chronicle')
+    def test_redirects_after_POST(self):
+        response = self.client.post('/chronicles/new',
+                                    data={'sess_text': 'A new sess chronicle'})
+        self.assertRedirects(response,
+                             '/chronicles/the-only-session-in-the-world/')
