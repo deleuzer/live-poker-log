@@ -3,11 +3,16 @@
     <title>Poker Chronicle</title>
   </head>
   <body>
-    <h1>Start Your Poker Chronicle</h1>
+    <h1>Your Poker Chronicle</h1>
     <form method="POST" action="/">
       <textarea id="id_new_sess" name="sess_text" placeholder="Describe session" rows="10"></textarea>
       <input type="submit" />
       {% csrf_token %}
     </form>
+    <table id="id_list_table">
+      {% for chron in chronicles %}
+      <tr><td>Sess {{ forloop.counter }}: {{ chron.text }}</td></tr>
+      {% endfor %}
+    </table>
   </body>
 </html>

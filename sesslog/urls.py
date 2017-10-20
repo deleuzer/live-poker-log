@@ -21,4 +21,5 @@ from chronicle import views
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^$', views.home_page, name='home'),
+    url(r'^chronicles/the-only-session-in-the-world/$', views.view_chronicles, name='view_chronicles'),
 ]

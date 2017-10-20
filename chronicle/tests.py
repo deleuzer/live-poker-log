@@ -17,16 +17,10 @@ class HomePageTest(TestCase):
     def test_redirects_after_POST(self):
         response = self.client.post('/', data={'sess_text': 'A new sess chronicle'})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/chronicles/the-only-session-in-the-world/')
     def test_only_saves_items_when_necessary(self):
         self.client.get('/')
         self.assertEqual(PokerSession.objects.count(), 0)
-    def test_display_all_list_items(self):
-        PokerSession.objects.create(text='chronicle 1')
-        PokerSession.objects.create(text='chronicle 2')
-        response = self.client.get('/')
-        self.assertIn('chronicle 1', response.content.decode())
-        self.assertIn('chronicle 2', response.content.decode())
 class PokerSessionModelTest(TestCase):
     def test_saving_and_retrieving_pokersessions(self):
         first_pokersession = PokerSession()
@@ -45,4 +39,13 @@ class PokerSessionModelTest(TestCase):
         self.assertEqual(second_saved_pokersession.text,
                          'Session the second'
         )
-
+class ChroniclesViweTest(TestCase):
+    def test_uses_chronicle_template(self):
+        response = self.client.get('/chronicles/the-only-session-in-the-world/')
+        self.assertTemplateUsed(response, 'chronicles.html')
+    def test_displays_all_chronicles(self):
+        PokerSession.objects.create(text='chronicle 1')
+        PokerSession.objects.create(text='chronicle 2')
+        response = self.client.get('/chronicles/the-only-session-in-the-world/')
+        self.assertContains(response, 'chronicle 1')
+        self.assertContains(response, 'chronicle 2')
