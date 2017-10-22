@@ -4,14 +4,14 @@
   </head>
   <body>
     <h1>Your Poker Chronicle</h1>
-    <form method="POST" action="/chronicles/new">
+    <form method="POST" action="/chronicles/{{ chronicles.id }}/add_sess">
       <textarea id="id_new_sess" name="sess_text" placeholder="Describe session" rows="10"></textarea>
       <input type="submit" />
       {% csrf_token %}
     </form>
     <table id="id_list_table">
-      {% for chron in chronicles %}
-      <tr><td>Sess {{ forloop.counter }}: {{ chron.text }}</td></tr>
+      {% for psess in chronicles.pokersession_set.all %}
+      <tr><td>Sess {{ forloop.counter }}: {{ psess.text }}</td></tr>
       {% endfor %}
     </table>
   </body>

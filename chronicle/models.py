@@ -6,4 +6,4 @@ class Chronicles(models.Model):
 
 class PokerSession(models.Model):
     text = models.TextField(default='')
-    list = models.ForeignKey(Chronicles, default=None)
+    chronicles = models.ForeignKey(Chronicles, default=None)

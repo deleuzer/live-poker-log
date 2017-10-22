@@ -97,6 +97,6 @@ class NewVisitorTest(LiveServerTestCase):
         # Again, there is no trace of Brett's list
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Crushed this session', page_text)
-        self.assertIn('Destroyed the morons')
+        self.assertIn('Destroyed the morons', page_text)
         # Satisfied, they both go back to sleep.
 

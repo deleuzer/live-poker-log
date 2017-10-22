@@ -22,5 +22,6 @@ urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^$', views.home_page, name='home'),
     url(r'^chronicles/new$', views.new_chronicle, name='new_chronicle'),
-    url(r'^chronicles/the-only-session-in-the-world/$', views.view_chronicles, name='view_chronicles'),
+    url(r'^chronicles/(\d+)/$', views.view_chronicles, name='view_chronicles'),
+    url(r'^chronicles/(\d+)/add_sess', views.add_sess, name='add_sess'),
 ]
