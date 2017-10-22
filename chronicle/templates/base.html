@@ -5,16 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Poker Chronicle</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/base.css" rel="stylesheet">
   </head>
   <body>
-    <h1>{% block header_text %}{% endblock %}</h1>
-    <form method="POST" action="{% block form_action %}{% endblock %}">
-      <textarea style="width:100%" id="id_new_sess" name="sess_text" placeholder="Describe session" rows="10"></textarea>
-      <input type="submit" />
-      {% csrf_token %}
-    </form>
-    {% block table %}
-    {% endblock %}
+    <div class="container">
+      <div class="row">
+	<div class="col-md-6 col-md-offset-3 jumbotron">
+	  <div class="text-center">
+	    <h1>{% block header_text %}{% endblock %}</h1>
+	    <form method="POST" action="{% block form_action %}{% endblock %}">
+	      <textarea id="id_new_sess" name="sess_text"
+			class="form-control input-lg"
+			placeholder="Describe session" rows="10">
+	      </textarea><br />
+	      <input type="submit" class="btn btn-primary" />
+	      {% csrf_token %}
+	    </form>
+	  </div>
+	</div>
+      </div>
+      <div class="row">
+	<div class="col-md-6 col-md-offset-3">
+	  {% block table %}
+	  {% endblock %}
+	</div>
+      </div>
+    </div>
   </body>
 </html>

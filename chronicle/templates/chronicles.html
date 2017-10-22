@@ -2,7 +2,7 @@
 {% block header_text %}Your Poker Chronicles{% endblock %}
 {% block form_action %}/chronicles/{{ chronicles.id }}/add_sess{% endblock %}
 {% block table %}
-<table id="id_list_table">
+<table id="id_list_table" class="table">
   {% for psess in chronicles.pokersession_set.all %}
   <tr><td>Sess {{ forloop.counter }}: {{ psess.text }}</td></tr>
   {% endfor %}
