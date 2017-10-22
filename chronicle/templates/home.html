@@ -1,13 +1,3 @@
-<html>
-  <head>
-    <title>Poker Chronicle</title>
-  </head>
-  <body>
-    <h1>Start Your Poker Chronicle</h1>
-    <form method="POST" action="/chronicles/new">
-      <textarea style="width:100%" id="id_new_sess" name="sess_text" placeholder="Describe session" rows="10"></textarea>
-      <input type="submit" />
-      {% csrf_token %}
-    </form>
-  </body>
-</html>
+{% extends 'base.html' %}
+{% block header_text %}Start Your Poker Chronicles{% endblock %}
+{% block form_action %}/chronicles/new{% endblock %}
