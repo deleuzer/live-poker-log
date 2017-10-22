@@ -5,7 +5,7 @@
   <body>
     <h1>Start Your Poker Chronicle</h1>
     <form method="POST" action="/chronicles/new">
-      <textarea id="id_new_sess" name="sess_text" placeholder="Describe session" rows="10"></textarea>
+      <textarea style="width:100%" id="id_new_sess" name="sess_text" placeholder="Describe session" rows="10"></textarea>
       <input type="submit" />
       {% csrf_token %}
     </form>

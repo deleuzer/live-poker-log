@@ -100,3 +100,25 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Destroyed the morons', page_text)
         # Satisfied, they both go back to sleep.
 
+    def test_layout_and_styling(self):
+        # Brett goes to the home page
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024,768)
+        # He notices the text box is nicely centered
+        textbox = self.browser.find_element_by_id('id_new_sess')
+        self.assertAlmostEqual(
+            textbox.location['x'] + textbox.size['width'] / 2,
+            512,
+            delta=10
+        )
+        # He starts a new list and sees the input is nicely
+        # centered there too
+        textbox.send_keys('testing')
+        textbox.submit()
+        self.wait_for_row_in_chronicle_table('Sess 1: testing')
+        textbox = self.browser.find_element_by_id('id_new_sess')
+        self.assertAlmostEqual(
+            textbox.location['x'] + textbox.size['width'] / 2,
+            512,
+            delta=10,
+        )
