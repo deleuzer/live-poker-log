@@ -7,7 +7,7 @@ User=dtest
 WorkingDirectory=/home/dtest/sites/SITENAME/source
 ExecStart=/home/dtest/sites/SITENAME/virtualenv/bin/gunicorn \
 --bind unix:/tmp/SITENAME.socket \
-superlists.wsgi:application
+sesslog.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
